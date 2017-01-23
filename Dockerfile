@@ -1,13 +1,10 @@
 FROM debian:wheezy-slim
 
-#INSTALL LIBAIO1 & UNZIP (NEEDED FOR STRONG-ORACLE)
-# RUN echo 'deb https://apt.dockerproject.org/repo debian-wheezy main' >> /etc/apt/sources.list.d/docker.list \
-#    echo 'deb https://apt.dockerproject.org/repo debian-wheezy main' >> /etc/apt/sources.list \
+#Add packages hosts
 RUN echo 'deb http://http.debian.net/debian wheezy-backports main' >> /etc/apt/sources.list.d/backports.list
 
 RUN apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
-#RUN cat /etc/apt/sources.list.d/docker.list
 RUN apt-get update \
  && apt-get install -y apt-transport-https ca-certificates gnupg2
 
@@ -15,11 +12,7 @@ RUN echo 'deb https://apt.dockerproject.org/repo debian-wheezy main' >> /etc/apt
 RUN apt-get update
 RUN apt-cache policy docker-engine
 
-#RUN
-#  && apt-get install -y libaio1 \
-#  && apt-get install -y build-essential \
 RUN apt-get install -y unzip \
- # && apt-get install -y curl \
  && apt-get install -y mercurial \
  && apt-get install -y docker-engine \ 
  && service docker start 
