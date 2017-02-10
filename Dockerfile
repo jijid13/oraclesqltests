@@ -1,5 +1,5 @@
-FROM debian:wheezy-slim
-
+#FROM debian:wheezy-slim
+FROM ubuntu:14.04.1
 #Add packages hosts
 #RUN echo 'deb http://http.debian.net/debian wheezy-backports main' >> /etc/apt/sources.list.d/backports.list
 
