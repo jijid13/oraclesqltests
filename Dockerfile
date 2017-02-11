@@ -21,6 +21,9 @@ ADD sqltests.sh /
 
 # Install Oracle dependencies
 RUN apt-get update && \
+    apt-get install openssh-server -y && \
+    mkdir /var/run/sshd && \
+    apt-get install openjdk-6-jdk -y && \
     apt-get install wget -y && \
     wget --no-check-certificate https://github.com/jijid13/oraclesqltests/raw/master/oracle-xe_11.2.0-1.0_amd64.debaa && \
     wget --no-check-certificate https://github.com/jijid13/oraclesqltests/raw/master/oracle-xe_11.2.0-1.0_amd64.debab && \
