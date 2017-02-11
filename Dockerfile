@@ -12,6 +12,8 @@ ENV SQL_PATH=/
 ENV ADMIN_SQL_PATH=/
 ENV PASSWORD=oracle
 
+RUN useradd -ms /bin/bash jenkins
+
 ADD chkconfig /sbin/
 ADD init.ora /
 ADD initXETemp.ora /
@@ -42,6 +44,9 @@ RUN apt-get update && \
 
 EXPOSE 1521
 EXPOSE 8080
+
+USER jenkins
+WORKDIR /home/jenkins
 
 ENTRYPOINT ["/startup.sh"]
 
