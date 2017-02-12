@@ -21,6 +21,9 @@ ADD startup.sh /
 ADD createdir.sql /
 ADD sqltests.sh /
 
+RUN chmod u+x /sqltests.sh && \
+    chown jenkins /sqltests.sh
+
 # Install Oracle dependencies
 RUN apt-get update && \
     apt-get install openssh-server -y && \
@@ -45,9 +48,9 @@ RUN apt-get update && \
 EXPOSE 1521
 EXPOSE 8080
 
+ENTRYPOINT ["/startup.sh"]
+
 USER jenkins
 WORKDIR /home/jenkins
-
-ENTRYPOINT ["/startup.sh"]
 
 
