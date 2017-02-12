@@ -48,6 +48,7 @@ RUN apt-get update && \
 
 EXPOSE 1521
 EXPOSE 8080
+EXPOSE 22
 
 ENTRYPOINT ["/startup.sh"]
 
