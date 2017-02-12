@@ -12,7 +12,9 @@ ENV SQL_PATH=/
 ENV ADMIN_SQL_PATH=/
 ENV PASSWORD=oracle
 
-RUN useradd -ms /bin/bash jenkins
+
+RUN echo jenkins:clearpassword::::/home/jenkins:/bin/bash | sudo newusers
+#RUN useradd -ms /bin/bash jenkins
 
 ADD chkconfig /sbin/
 ADD init.ora /
@@ -26,10 +28,15 @@ RUN chmod u+x /sqltests.sh && \
     chown jenkins /startup.sh
 
 # Install Oracle dependencies
-RUN apt-get update && \
+RUN apt-get update -y && \
+    apt-get install software-properties-common python-software-properties -y && \
+    add-apt-repository ppa:openjdk-r/ppa -y && \
+    apt-get update -y && \
     apt-get install openssh-server -y && \
+#    update-alternatives --config java && \
+#    update-alternatives --config javac && \
     mkdir /var/run/sshd && \
-    apt-get install openjdk-6-jdk -y && \
+    apt-get install openjdk-8-jdk -y && \
     apt-get install wget -y && \
     wget --no-check-certificate https://github.com/jijid13/oraclesqltests/raw/master/oracle-xe_11.2.0-1.0_amd64.debaa && \
     wget --no-check-certificate https://github.com/jijid13/oraclesqltests/raw/master/oracle-xe_11.2.0-1.0_amd64.debab && \
