@@ -51,7 +51,5 @@ EXPOSE 8080
 
 ENTRYPOINT ["/startup.sh"]
 
-USER jenkins
-WORKDIR /home/jenkins
 
 
