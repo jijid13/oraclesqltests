@@ -22,7 +22,8 @@ ADD createdir.sql /
 ADD sqltests.sh /
 
 RUN chmod u+x /sqltests.sh && \
-    chown jenkins /sqltests.sh
+    chown jenkins /sqltests.sh && \
+    chown jenkins /startup.sh
 
 # Install Oracle dependencies
 RUN apt-get update && \
