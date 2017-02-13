@@ -1,22 +1,13 @@
 #!/bin/bash
+
+export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+export ORACLE_SID=XE
+export PATH=$ORACLE_HOME/bin:$PATH
+
 #Fix Oracle Listener
-sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
+sudo sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
 
 echo "STARTING ORACLE..."
-service oracle-xe start
+sudo service oracle-xe start
 
-echo "STARTING PROVISION..."
-for SCRIPT in /provision/*; do
-	if [ -f "$SCRIPT" ]; then
-		sh "$SCRIPT"
-	fi
-done
-echo "PROVISION DONE... "
-
-#Future startups
-echo "#!/bin/bash
-service oracle-xe start
-echo ORACLE XE 11G RUNNING...
-tail -f" > /startup.sh
-
-/startup.sh
+/home/jenkins/sqltests.sh

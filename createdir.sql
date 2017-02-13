@@ -1,1 +1,2 @@
 CREATE DIRECTORY DUMP_DIR AS '/tmp';
+exit;
