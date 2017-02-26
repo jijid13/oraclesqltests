@@ -4,7 +4,7 @@ sqlplus system/oracle @/home/jenkins/createdir.sql;
 sqlplus system/oracle @$INIT_FILES/init_before_impdp.sql;
 
 cp $DUMP_FILE_PATH /tmp/metadata.dump
-impdp system/oracle directory=DUMP_DIR SCHEMA=$IMPORT_SCHEMA dumpfile=metadata.dump logfile=/home/jenkins/log/impdp.log;
+impdp system/oracle directory=DUMP_DIR SCHEMAS=$IMPORT_SCHEMA dumpfile=metadata.dump logfile=/home/jenkins/log/impdp.log;
 
 sqlplus system/oracle @$INIT_FILES/init_after_impdp.sql;
 
