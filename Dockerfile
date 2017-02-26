@@ -6,12 +6,13 @@ MAINTAINER Madjid Kazi Tani <jijid13@gmail.com>
 ENV ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
 ENV ORACLE_SID=XE
 ENV PATH=$ORACLE_HOME/bin:$PATH
-ENV DUMP_PATH=/
-ENV INIT_FILES=/
-ENV SCHEMA=PB00
-ENV SQL_PATH=/
-ENV ADMIN_SQL_PATH=/
-ENV PASSWORD=oracle
+ENV DUMP_FILE_PATH=/home/jenkins/dump/V1.0.dmp
+ENV INIT_FILES=/home/jenkins/db/init
+ENV SQL_PATH=/home/jenkins/db/v2.0/alters
+ENV SYSTEM_SQL_PATH=/home/jenkins/db/v2.0/admin
+ENV IMPORT_SCHEMA=USER1
+ENV SQLPLUS_USER=USER1
+ENV SQLPLUS_PASSWORD=oracle
 
 # In case you need proxy
 #RUN echo 'Acquire::http::Proxy "http://127.0.0.1:8080";' >> /etc/apt/apt.conf
@@ -24,6 +25,8 @@ run locale-gen en_US.UTF-8 &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q upgrade -y -o Dpkg::Options::="--force-confnew" --no-install-recommends &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends openssh-server &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends git &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends subversion &&\
+    DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends mercurial &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends wget &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends libaio1 &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends net-tools &&\
@@ -55,8 +58,8 @@ RUN useradd -m -d /home/jenkins -s /bin/sh jenkins &&\
 
 RUN mkdir /home/jenkins/workspace && \
     chown jenkins:jenkins /home/jenkins/workspace && \
-    mkdir /home/jenkins/workspace/testoracle && \
-    chown jenkins:jenkins /home/jenkins/workspace/testoracle 
+    mkdir /home/jenkins/workspace/log && \
+    chown jenkins:jenkins /home/jenkins/workspace/log 
 
 ADD chkconfig /sbin/
 ADD init.ora /
