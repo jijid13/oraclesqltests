@@ -33,7 +33,7 @@ GOOD_BUILD="${GREEN}Last build successful. "
 BAD_BUILD="${RED}Last build failed. "
 
 
-if grep -q "ORA-" /tmp/*.log; then
+if grep -q "ORA-" /home/jenkins/log/*.log; then
         echo "${BAD_BUILD}${JOB} completed with errors.";
 else
         echo "${GOOD_BUILD}${JOB} completed successfully."
