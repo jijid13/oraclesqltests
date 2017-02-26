@@ -83,6 +83,10 @@ RUN ln -s /usr/bin/awk /bin/awk && \
     mv /initXETemp.ora /u01/app/oracle/product/11.2.0/xe/config/scripts && \
     printf 8080\\n1521\\noracle\\noracle\\ny\\n | /etc/init.d/oracle-xe configure
 
+RUN rm -rf /oracle-xe_11.2.0-1.0_amd64.debaa && \
+    rm -rf oracle-xe_11.2.0-1.0_amd64.debab && \
+    rm -rf oracle-xe_11.2.0-1.0_amd64.debac
+
 # Standard SSH port
 EXPOSE 22
 
