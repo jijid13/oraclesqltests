@@ -1,4 +1,3 @@
-@@ -1,40 +0,0 @@
 #!/bin/bash
 sqlplus system/oracle @/home/jenkins/createdir.sql;
 
