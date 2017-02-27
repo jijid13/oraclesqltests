@@ -36,7 +36,9 @@ BAD_BUILD="${RED}Last build failed. "
 
 if grep -q "ORA-" /home/jenkins/log/*.log; then
         echo "${BAD_BUILD}${JOB} completed with errors.";
+        exit 1
 else
         echo "${GOOD_BUILD}${JOB} completed successfully."
+        exit 0
 fi
 
