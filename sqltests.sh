@@ -12,7 +12,7 @@ sqlplus system/oracle @$INIT_FILES/init_after_impdp.sql;
 for f in $SQL_PATH/*; do
     if [ -f $f ]; then
         if [[ $f == *.sql ]]; then
-            sqlplus $SQLPLUS_USER/$SQLPLUS_PASSWORD @$f >> /home/jenkins/log/alters_user.log;
+            sqlplus $SQLPLUS_USER/$SQLPLUS_PASSWORD @$f >> /home/jenkins/workspace/log/alters_user.log;
 	   fi
     fi
 done
@@ -20,7 +20,7 @@ done
 for f in $SYSTEM_SQL_PATH/*; do
     if [ -f $f ]; then
         if [[ $f == *.sql ]]; then
-            sqlplus system/oracle @$f >> /home/jenkins/log/alters_system.log;
+            sqlplus system/oracle @$f >> /home/jenkins/workspace/log/alters_system.log;
         fi
     fi
 done
@@ -34,7 +34,7 @@ GOOD_BUILD="${GREEN}Last build successful. "
 BAD_BUILD="${RED}Last build failed. "
 
 
-if grep -q "ORA-" /home/jenkins/log/*.log; then
+if grep -q "ORA-" /home/jenkins/workspace/log/*.log; then
         echo "${BAD_BUILD}${JOB} completed with errors.";
         exit 1
 else
