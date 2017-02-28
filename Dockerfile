@@ -70,7 +70,8 @@ ADD sqltests.sh /home/jenkins/
 
 RUN chmod u+x /home/jenkins/sqltests.sh && \
     chown jenkins:jenkins /home/jenkins/sqltests.sh && \
-    chown jenkins:jenkins /startup.sh
+    chown jenkins:jenkins /startup.sh && \
+    chmod 777 /home/jenkins/workspace/log
 
 RUN ln -s /usr/bin/awk /bin/awk && \
     mkdir /var/lock/subsys && \
