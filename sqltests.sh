@@ -1,13 +1,22 @@
 #!/bin/bash
 sqlplus system/oracle @/home/jenkins/createdir.sql;
 
-sqlplus system/oracle @$INIT_FILES/init_before_impdp.sql;
+if [ -f "$INIT_FILES/init_before_impdp.sql" ];
+then
+   sqlplus system/oracle @$INIT_FILES/init_before_impdp.sql;
+fi
 
-cp $DUMP_FILE_PATH /tmp/metadata.dump
-impdp system/oracle directory=DUMP_DIR SCHEMAS=$IMPORT_SCHEMA dumpfile=metadata.dump logfile=impdp.log;
-cp /tmp/impdp.log /home/jenkins/workspace/log/
+if [ -f "$DUMP_FILE_PATH" ];
+then
+	cp $DUMP_FILE_PATH /tmp/metadata.dump
+	impdp system/oracle directory=DUMP_DIR SCHEMAS=$IMPORT_SCHEMA dumpfile=metadata.dump logfile=impdp.log;
+	cp /tmp/impdp.log /home/jenkins/workspace/log/
+fi
 
-sqlplus system/oracle @$INIT_FILES/init_after_impdp.sql;
+if [ -f "$INIT_FILES/init_after_impdp.sql" ];
+then
+	sqlplus system/oracle @$INIT_FILES/init_after_impdp.sql;
+fi
 
 for f in $SQL_PATH/*; do
     if [ -f $f ]; then
