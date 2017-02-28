@@ -1,4 +1,7 @@
 #!/bin/bash
+
+echo "File V1.1"
+
 sqlplus system/oracle @/home/jenkins/createdir.sql;
 
 if [ -f "$INIT_FILES/init_before_impdp.sql" ];
