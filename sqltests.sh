@@ -1,8 +1,10 @@
 #!/bin/bash
 
-echo "File V1.5" 
+echo "File V1.6" 
 
 sudo chown -R 1000:1000 /home/jenkins/log
+
+rm -rf /home/jenkins/log/*
 
 sqlplus system/oracle @/home/jenkins/createdir.sql >> /home/jenkins/log/createdir.log;
 
@@ -15,7 +17,6 @@ if [ -f "$DUMP_FILE_PATH" ];
 then
 	cp $DUMP_FILE_PATH /tmp/metadata.dump
 	impdp system/oracle directory=DUMP_DIR SCHEMAS=$IMPORT_SCHEMA dumpfile=metadata.dump logfile=impdp.log;
-	cp /tmp/impdp.log /home/jenkins/log/
 fi
 
 if [ -f "$INIT_FILES/init_after_impdp.sql" ];
@@ -50,9 +51,18 @@ BAD_BUILD="${RED}Last build failed. "
 
 if grep -q "ORA-" /home/jenkins/log/*.log; then
         echo "${BAD_BUILD}${JOB} completed with errors.";
+	if [ -f "/tmp/impdp.log" ];
+	then
+		cp /tmp/impdp.log /home/jenkins/log/
+	fi
         exit 1
 else
         echo "${GOOD_BUILD}${JOB} completed successfully."
+	if [ -f "/tmp/impdp.log" ];
+	then
+		cp /tmp/impdp.log /home/jenkins/log/
+	fi
+
         exit 0
 fi
 
