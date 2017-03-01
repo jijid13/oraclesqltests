@@ -1,40 +1,40 @@
 #!/bin/bash
 
-echo "File V1.7" 
+echo "[$now] [Info] : File V1.7" 
 
-echo "Log path rights"
+echo "[$now] [Info] : Log path rights"
 sudo chown -R 1000:1000 /home/jenkins/log
 
-echo "Clear logs"
+echo "[$now] [Info] : Clear logs"
 rm -rf /home/jenkins/log/*
 
-echo "Create Dump Dir"
+echo "[$now] [Info] : Create Dump Dir"
 sqlplus system/oracle @/home/jenkins/createdir.sql >> /home/jenkins/log/createdir.log;
 
 if [ -f "$INIT_FILES/init_before_impdp.sql" ];
 then
-	echo "Run init before impdp"
+	echo "[$now] [Info] : Run init before impdp"
 	sqlplus system/oracle @$INIT_FILES/init_before_impdp.sql >> /home/jenkins/log/init_before_impdp.log;
 fi
 
 if [ -f "$DUMP_FILE_PATH" ];
 then
-	echo "Copy the dump file $DUMP_FILE_PATH"
+	echo "[$now] [Info] : Copy the dump file $DUMP_FILE_PATH"
 	cp $DUMP_FILE_PATH /tmp/metadata.dump
-	echo "Start the import"
+	echo "[$now] [Info] : Start the import"
 	impdp system/oracle directory=DUMP_DIR SCHEMAS=$IMPORT_SCHEMA dumpfile=metadata.dump logfile=impdp.log >> /tmp/import.log;
 fi
 
 if [ -f "$INIT_FILES/init_after_impdp.sql" ];
 then
-	echo "Run init after impdp"
+	echo "[$now] [Info] : Run init after impdp"
 	sqlplus system/oracle @$INIT_FILES/init_after_impdp.sql >> /home/jenkins/log/init_after_impdp.log;
 fi
 
 for f in $SQL_PATH/*; do
     if [ -f $f ]; then
         if [[ $f == *.sql ]]; then
-		echo "Run sql file $f"
+		echo "[$now] [Info] : Run sql file $f"
             	sqlplus $SQLPLUS_USER/$SQLPLUS_PASSWORD @$f >> /home/jenkins/log/alters_user.log;
 	   fi
     fi
@@ -43,7 +43,7 @@ done
 for f in $SYSTEM_SQL_PATH/*; do
     if [ -f $f ]; then
         if [[ $f == *.sql ]]; then
-		echo "Run system sql file $f"
+		echo "[$now] [Info] : Run system sql file $f"
             	sqlplus system/oracle @$f >> /home/jenkins/log/alters_system.log;
         fi
     fi
@@ -61,18 +61,18 @@ BAD_BUILD="${RED}Last build failed. "
 if grep -q "ORA-" /home/jenkins/log/*.log; then
 	if [ -f "/tmp/impdp.log" ];
 	then
-		echo "Copy the impdp log file"
+		echo "[$now] [Info] : Copy the impdp log file"
 		cp /tmp/impdp.log /home/jenkins/log/
 	fi
-	echo "${BAD_BUILD}${JOB} completed with errors.";
+	echo "[$now] [Error] : ${BAD_BUILD}${JOB} completed with errors.";
         exit 1
 else
 	if [ -f "/tmp/impdp.log" ];
 	then
-		echo "Copy the impdp log file"
+		echo "[$now] [Info] : Copy the impdp log file"
 		cp /tmp/impdp.log /home/jenkins/log/
 	fi
-        echo "${GOOD_BUILD}${JOB} completed successfully."
+        echo "[$now] [Info] : ${GOOD_BUILD}${JOB} completed successfully."
         exit 0
 fi
 
