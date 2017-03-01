@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "File V1.1"
+echo "File V1.1" 
 
 sqlplus system/oracle @/home/jenkins/createdir.sql;
 
