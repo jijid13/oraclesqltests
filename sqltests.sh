@@ -4,11 +4,11 @@ echo "File V1.3"
 
 sudo chown -R 1000:1000 /home/jenkins/workspace/log
 
-sqlplus system/oracle @/home/jenkins/createdir.sql;
+sqlplus system/oracle @/home/jenkins/createdir.sql >> /home/jenkins/workspace/log/createdir.log;
 
 if [ -f "$INIT_FILES/init_before_impdp.sql" ];
 then
-   sqlplus system/oracle @$INIT_FILES/init_before_impdp.sql;
+   sqlplus system/oracle @$INIT_FILES/init_before_impdp.sql >> /home/jenkins/workspace/log/init_before_impdp.log;
 fi
 
 if [ -f "$DUMP_FILE_PATH" ];
@@ -20,7 +20,7 @@ fi
 
 if [ -f "$INIT_FILES/init_after_impdp.sql" ];
 then
-	sqlplus system/oracle @$INIT_FILES/init_after_impdp.sql;
+	sqlplus system/oracle @$INIT_FILES/init_after_impdp.sql >> /home/jenkins/workspace/log/init_after_impdp.log;
 fi
 
 for f in $SQL_PATH/*; do
