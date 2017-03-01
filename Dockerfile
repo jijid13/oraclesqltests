@@ -58,8 +58,8 @@ RUN useradd -m -d /home/jenkins -s /bin/sh jenkins &&\
 
 RUN mkdir /home/jenkins/workspace && \
     chown jenkins:jenkins /home/jenkins/workspace && \
-    mkdir /home/jenkins/workspace/log && \
-    chown jenkins:jenkins /home/jenkins/workspace/log 
+    mkdir /home/jenkins/log && \
+    chown jenkins:jenkins /home/jenkins/log 
 
 ADD chkconfig /sbin/
 ADD init.ora /
@@ -71,7 +71,7 @@ ADD sqltests.sh /home/jenkins/
 RUN chmod u+x /home/jenkins/sqltests.sh && \
     chown jenkins:jenkins /home/jenkins/sqltests.sh && \
     chown jenkins:jenkins /startup.sh && \
-    chmod 777 /home/jenkins/workspace/log
+    chmod 777 /home/jenkins/log
 
 RUN ln -s /usr/bin/awk /bin/awk && \
     mkdir /var/lock/subsys && \
