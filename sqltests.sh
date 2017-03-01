@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "File V1.3" 
+echo "File V1.4" 
 
 sudo chown -R 1000:1000 /home/jenkins/workspace/log
 
