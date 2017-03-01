@@ -1,6 +1,8 @@
 #!/bin/bash
 
-echo "File V1.2" 
+echo "File V1.3" 
+
+sudo chown -R 1000:1000 /home/jenkins/workspace/log
 
 sqlplus system/oracle @/home/jenkins/createdir.sql;
 
