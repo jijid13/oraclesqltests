@@ -10,6 +10,4 @@ sudo sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.
 echo "STARTING ORACLE..."
 sudo service oracle-xe start
 
-sudo chown -R 1000:1000 /home/jenkins/workspace/log
-
 /home/jenkins/sqltests.sh
