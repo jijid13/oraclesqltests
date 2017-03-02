@@ -33,7 +33,7 @@ then
 	sqlplus system/oracle @$INIT_FILES/init_after_impdp.sql >> /home/jenkins/log/init_after_impdp.log;
 fi
 
-for f in $SQL_PATH/*; do
+for f in `ls -v $SQL_PATH/*`; do
     if [ -f $f ]; then
         if [[ $f == *.sql ]]; then
 		echo "[$now] [Info] : Run sql file $f"
@@ -42,7 +42,7 @@ for f in $SQL_PATH/*; do
     fi
 done
 
-for f in $SYSTEM_SQL_PATH/*; do
+for f in `ls -v $SYSTEM_SQL_PATH/*`; do
     if [ -f $f ]; then
         if [[ $f == *.sql ]]; then
 		echo "[$now] [Info] : Run system sql file $f"
