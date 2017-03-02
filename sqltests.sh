@@ -1,5 +1,7 @@
 #!/bin/bash
 
+now=$(date +"%A %W %Y %X")
+
 echo "[$now] [Info] : File V1.7" 
 
 echo "[$now] [Info] : Log path rights"
@@ -49,6 +51,23 @@ for f in $SYSTEM_SQL_PATH/*; do
     fi
 done
 
+echo "[$now] [Info] : start logs trace **************************************************************************************"
+echo "***********************************************************************************************************************"
+
+cat /home/jenkins/log/init_before_impdp.log
+
+cat /home/jenkins/log/init_after_impdp.log
+
+cat /home/jenkins/log/alters_user.log
+
+cat /home/jenkins/log/alters_system.log
+
+cat /home/jenkins/log/alters_system.log
+
+cat /tmp/impdp.log
+
+echo "***********************************************************************************************************************"
+echo "[$now] [Info] : end logs trace ****************************************************************************************"
 
 CONSOLE_RED="\033[2;31m"
 CONSOLE_GREEN="\033[2;32m"
