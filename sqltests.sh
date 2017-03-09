@@ -54,14 +54,19 @@ done
 echo "[$now] [Info] : start logs trace **************************************************************************************"
 echo "***********************************************************************************************************************"
 
+echo "init_before_impdp.log *************************************"
 cat /home/jenkins/log/init_before_impdp.log
 
+echo "init_after_impdp.log **************************************"
 cat /home/jenkins/log/init_after_impdp.log
 
+echo "alters_user.log *******************************************"
 cat /home/jenkins/log/alters_user.log
 
+echo "alters_system.log *****************************************"
 cat /home/jenkins/log/alters_system.log
 
+echo "alters_system.log *****************************************"
 cat /home/jenkins/log/alters_system.log
 
 echo "***********************************************************************************************************************"
