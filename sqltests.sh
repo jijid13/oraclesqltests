@@ -51,6 +51,9 @@ for f in `ls -v $SYSTEM_SQL_PATH/*`; do
     fi
 done
 
+echo "check invalid Objects"
+sqlplus system/oracle @/home/jenkins/checkInvalidObjects.sql $IMPORT_SCHEMA >> /home/jenkins/log/checkInvalidObjects.log
+
 echo "[$now] [Info] : start logs trace **************************************************************************************"
 echo "***********************************************************************************************************************"
 
@@ -68,6 +71,9 @@ cat /home/jenkins/log/alters_system.log
 
 echo "alters_system.log *****************************************"
 cat /home/jenkins/log/alters_system.log
+
+echo "checkInvalidObjects.log ***********************************"
+cat /home/jenkins/log/checkInvalidObjects.log
 
 echo "***********************************************************************************************************************"
 echo "[$now] [Info] : end logs trace ****************************************************************************************"
@@ -94,8 +100,14 @@ else
 		echo "[$now] [Info] : Copy the impdp log file"
 		cp /tmp/impdp.log /home/jenkins/log/
 	fi
-        echo "[$now] [Info] : ${GOOD_BUILD}${JOB} completed successfully."
-        exit 0
+	
+	if grep -q "0 invalid objects" /home/jenkins/log/checkInvalidObjects.log; then
+		echo "[$now] [Info] : ${GOOD_BUILD}${JOB} completed successfully."
+        	exit 0
+	else
+		echo "[$now] [Error] : ${BAD_BUILD}${JOB} completed with errors.";
+        	exit 1
+	fi
 fi
 
 
