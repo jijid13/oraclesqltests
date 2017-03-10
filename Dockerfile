@@ -67,6 +67,7 @@ ADD initXETemp.ora /
 ADD startup.sh /
 ADD createdir.sql /home/jenkins/
 ADD sqltests.sh /home/jenkins/
+ADD checkInvalidObjects.sql /home/jenkins/
 
 RUN chmod u+x /home/jenkins/sqltests.sh && \
     chown jenkins:jenkins /home/jenkins/sqltests.sh && \
