@@ -50,10 +50,10 @@ RUN apt-get -q update &&\
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 
 RUN apt-get update
-RUN apt-get install software-properties-common
+RUN apt-get install -y software-properties-common
 RUN add-apt-repository -y ppa:openjdk-r/ppa
-RUN apt-get update
-RUN apt-get install openjdk-8-jdk
+RUN apt-get update -y
+RUN apt-get install -y openjdk-8-jdk
 
 # Set user jenkins to the image
 RUN useradd -m -d /home/jenkins -s /bin/sh jenkins &&\
