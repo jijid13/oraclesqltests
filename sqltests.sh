@@ -46,6 +46,7 @@ for f in `ls -v $SQL_PATH/*`; do
     if [ -f $f ]; then
         if [[ $f == *.sql ]]; then
 		echo "[$now] [Info] : Run sql file $f"
+		echo "$f" >> /home/jenkins/log/alters_user.log;
             	sqlplus $SQLPLUS_USER/$SQLPLUS_PASSWORD @$f >> /home/jenkins/log/alters_user.log;
 	   fi
     fi
@@ -55,6 +56,7 @@ for f in `ls -v $SYSTEM_SQL_PATH/*`; do
     if [ -f $f ]; then
         if [[ $f == *.sql ]]; then
 		echo "[$now] [Info] : Run system sql file $f"
+		echo "$f" >> /home/jenkins/log/alters_system.log;
             	sqlplus system/oracle @$f >> /home/jenkins/log/alters_system.log;
         fi
     fi
