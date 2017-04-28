@@ -1,8 +1,17 @@
 #!/bin/bash
 
+mkdir /home/jenkins/db
+cp -r "$SQL_PATH"/* /home/jenkins/db
+export SQL_PATH=/home/jenkins/db
+
+mkdir /home/jenkins/system
+cp -r "$SYSTEM_SQL_PATH"/* /home/jenkins/system
+export SYSTEM_SQL_PATH=/home/jenkins/system
+
+
 now=$(date +"%A %W %Y %X")
 
-echo "[$now] [Info] : File V1.7" 
+echo "[$now] [Info] : File V1.8" 
 
 echo "[$now] [Info] : Log path rights"
 sudo chown -R 1000:1000 /home/jenkins/log
