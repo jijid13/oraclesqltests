@@ -63,7 +63,7 @@ for f in `ls -v $SYSTEM_SQL_PATH/*`; do
 done
 
 echo "check invalid Objects"
-sqlplus system/oracle @/home/jenkins/checkInvalidObjects.sql $IMPORT_SCHEMA >> /home/jenkins/log/checkInvalidObjects.log
+sqlplus system/oracle @/home/jenkins/checkInvalidObjects.sql $IMPORT_SCHEMA $FILTERED_OUT_OBJECTS >> /home/jenkins/log/checkInvalidObjects.log
 
 echo "[$now] [Info] : start logs trace **************************************************************************************"
 echo "***********************************************************************************************************************"
