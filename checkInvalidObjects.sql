@@ -23,7 +23,8 @@ SPOOL invalidObjects.out
 select count(object_name) || ' invalid objects'
 from dba_objects
 where status = 'INVALID'
-AND OBJECT_TYPE != 'JAVA CLASS'
+AND OBJECT_TYPE not in ('JAVA CLASS', 'MATERIALIZED VIEW')
+AND OWNER = '&1'
 AND object_name not in ('&2');
 
 SELECT owner,
@@ -32,7 +33,8 @@ SELECT owner,
        status
 FROM   dba_objects
 WHERE  status = 'INVALID'
-AND OBJECT_TYPE != 'JAVA CLASS'
+AND OBJECT_TYPE not in ('JAVA CLASS', 'MATERIALIZED VIEW')
+AND OWNER = '&1'
 AND object_name not in ('&2')
 ORDER BY owner, object_type, object_name;
 SPOOL OFF;
