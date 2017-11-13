@@ -16,6 +16,10 @@ echo "[$now] [Info] : File V1.8"
 echo "[$now] [Info] : Log path rights"
 sudo chown -R 1000:1000 /home/jenkins/log
 
+sqlplus system/oracle <<EOF 
+ALTER USER system IDENTIFIED BY oracle;
+EOF
+
 echo "[$now] [Info] : Clear logs"
 rm -rf /home/jenkins/log/*
 
